@@ -1,53 +1,40 @@
 <?php
-require_once('includes/header.php');
-echo'<br/>';
+session_start();
+
+   
+$user ='wimaissa';
+$password_per ='123456789';
 
 
-?>
-<h1 style="font-family:Courier New; font-weight: bold; font-size:80px; text-decoration:overline;">Bienvenue Sur W&R BOUTIQUE</h1>
+if(isset($_POST['submit'])){
+	$username = $_POST['username'];
+    $password = $_POST['password'];
+    if(($username) && ($password)){
+
+          if ($username == $user && $password == $password_per){
+          	    $_SESSION['username']= $username;
+                header('location: admin.php');
+              
+          }else{
+          	echo'votre nom ou mot de passe est incorrect';
 
 
+          }
+    }else{
 
+    	echo'Veuillez remplir tous les champs !';
+    }
 
-
-<?php
-
- $select =$db->prepare("SELECT * FROM products ORDER BY id DESC LIMIT 0,3");
-     $select->execute();
-
-     while ($s=$select->fetch(PDO::FETCH_OBJ)) {
-
-           $lenght=40;
-     	   $description=$s->description;
-     
-           $new_description=substr($description,0,$lenght)."...";
-
-           $description_finale=wordwrap($new_description,50,'<br />', false);
-
-
-   ?>
-
-   <div style="text-align:center;">
-   <img height="300" width="300" src="admin/imgs/<?php echo $s->title; ?>.jpg"/>
-   <h2 style="color:black;"><?php echo $s->title;?></h2>
-   <h5 style="color:black;"><?php echo $description_finale;?></h5>
-   <h4 style="color:black;"><?php echo $s->price;?> DZ</h4></div>
-<br/><br/>
-
-   <?php
-    } 	
+}
 
 
 ?>
 
 
-<?php
-echo '<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>';
-require_once('includes/footer.php');
-?>
+<h1>Administation - Connexion</h1>
+<form action="" method="POST">
+   <h3>Nom:</h3>	<input type="text" name="username"/><br/><br/>
+   <h3>Mot-de-passe:</h3>	<input type="password" name="password"/><br/><br/>
+	<input type="submit" name="submit"/><br/><br/>
 
-
-
-
-
-
+</form>
